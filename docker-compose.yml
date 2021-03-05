@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  go:
+    build: ./backend
+    volumes:
+      - ./backend:/go/src/backend
+    working_dir: /go/src/backend
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - 8080:8080
