@@ -1,22 +1,17 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"github.com/greenteabiscuit/go-next-data-app/backend/controller"
 )
 
 func main() {
 	r := gin.Default()
-	x := 1
-	y := "a"
-	fmt.Println(x, y)
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "Hello world",
-		})
-	})
+	helloController := controller.HelloController{}
+	r.Use()
+	{
+		r.GET("/api/hello", helloController.Hello)
+	}
 
 	r.Run(":8080")
 }
