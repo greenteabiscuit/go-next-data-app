@@ -15,3 +15,33 @@ services:
       - apparmor:unconfined
     cap_add: 
       - SYS_PTRACE
+
+  mysql:
+    build: ./mysql
+    environment:
+      TZ: Asia/Tokyo
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+    ports:
+      - 13306:3306
+    volumes:
+      - mysql_volume:/var/lib/mysql
+    networks:
+      new:
+        aliases:
+          - db
+  migrate:
+    image: migrate/migrate
+    networks:
+      - new
+    volumes:
+      - .:/migrations
+    command: ["-path", "/migrations", "-database", "mysql://root:root@tcp(mysql:3306)/db", "up", "3"]
+    links:
+      - mysql
+
+networks:
+  new:
+
+volumes:
+  mysql_volume:
