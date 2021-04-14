@@ -36,7 +36,7 @@ services:
       - new
     volumes:
       - .:/migrations
-    command: ["-path", "/migrations", "-database", "mysql://root:root@tcp(mysql:3306)/db", "up", "3"]
+    command: ["-path", "/migrations", "-database", "mysql://root:root@tcp(mysql:3306)/db", "up"]
     links:
       - mysql
 
